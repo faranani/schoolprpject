@@ -1,0 +1,60 @@
+import { Component } from '@angular/core';
+import { OnInit } from '@angular/core';
+// Import Services
+import { SubjectService } from '../../services/subject.service';
+// Import Models
+import { Subject } from '../../domain/schoolprpject_db/subject';
+
+// START - USED SERVICES
+/**
+* subjectService.delete
+*	@description CRUD ACTION delete
+*	@param ObjectId id Id
+*
+* subjectService.list
+*	@description CRUD ACTION list
+*
+*/
+// END - USED SERVICES
+
+/**
+ * This component shows a list of Subject
+ * @class SubjectListComponent
+ */
+@Component({
+    selector: 'app-subject-list',
+    templateUrl: './subject-list.component.html',
+    styleUrls: ['./subject-list.component.css']
+})
+export class SubjectListComponent implements OnInit {
+    list: Subject[];
+    search: any = {};
+    idSelected: string;
+    constructor(
+        private subjectService: SubjectService,
+    ) { }
+
+    /**
+     * Init
+     */
+    ngOnInit(): void {
+        this.subjectService.list().subscribe(list => this.list = list);
+    }
+
+    /**
+     * Select Subject to remove
+     *
+     * @param {string} id Id of the Subject to remove
+     */
+    selectId(id: string) {
+        this.idSelected = id;
+    }
+
+    /**
+     * Remove selected Subject
+     */
+    deleteItem() {
+        this.subjectService.remove(this.idSelected).subscribe(data => this.list = this.list.filter(el => el._id !== this.idSelected));
+    }
+
+}

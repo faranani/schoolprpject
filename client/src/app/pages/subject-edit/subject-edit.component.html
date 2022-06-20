@@ -1,0 +1,45 @@
+<!-- TITLE -->
+<div class="mb-40 mt-40">
+    <h1>Subject Edit</h1>
+</div>
+<div class="card mb-40">
+    <div class="card-header">
+        <i class="fa fa-edit"></i> Edit
+    </div>
+    <div class="card-body">
+        <form #editForm="ngForm" [ngClass]="{'was-validated': formValid!=null}">
+            <div class="row justify-content-md-center">
+                <div class="col-md-10">
+                    <div class="form-group">
+                        <label for="subjectname">Subjectname</label>
+                        <input type="text" class="form-control" id="subjectname" [(ngModel)]="item.subjectname" name="subjectname" #subjectname="ngModel" >
+                    </div>
+                    <div class="form-group">
+                        <label for="totalSub">TotalSub</label>
+                        <input type="number" class="form-control" id="totalSub" [(ngModel)]="item.totalSub" name="totalSub" #totalSub="ngModel" >
+                    </div>
+                    <!-- RELATIONS -->
+                    <h2 class="mb-20">Relations</h2>
+
+                    <label for="exam">Exam</label>
+                    <select name="exam" id="exam" [(ngModel)]="item.exam" class="form-control" #exam="ngModel"  >
+                        <option *ngFor="let item of listExam" [value]="item._id">{{item._id}}</option>
+                    </select>
+                    <label for="studentName">StudentName</label>
+                    <select name="subject" id="subject" [(ngModel)]="item.subject" class="form-control" #subject="ngModel"  >
+                        <option *ngFor="let item of listSubject" [value]="item._id">{{item._id}}</option>
+                    </select>
+
+                    
+        
+
+                    <!-- BUTTON BAR -->
+                    <div class="mt-40">
+                        <button class="btn btn-primary pull-right" (click)="save(editForm.valid, item)">Save</button>
+                        <button class="btn btn-secondary pull-right mr-2" (click)="goBack()">Back To List</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
